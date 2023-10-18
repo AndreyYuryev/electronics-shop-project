@@ -77,3 +77,8 @@ class Item:
 
     def __str__(self):
         return self.name
+
+    def __add__(self, other):
+        if isinstance(other, Item) or issubclass(other.__class__, self.__class__):
+            return self.quantity + other.quantity
+        return self.quantity
