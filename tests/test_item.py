@@ -1,6 +1,6 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 
 
 def test_instance_item():
@@ -57,3 +57,14 @@ def test_representation():
     item1 = Item("Смартфон", 10000, 20)
     assert repr(item1) == "Item('Смартфон', 10000, 20)"
     assert str(item1) == 'Смартфон'
+
+def test_exception():
+    # Файл items.csv отсутствует.
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv('itm.csv')
+    # FileNotFoundError: Отсутствует файл item.csv
+
+    # В файле items.csv удалена последняя колонка.
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv('src/item.csv')
+    # InstantiateCSVError: Файл item.csv поврежден
