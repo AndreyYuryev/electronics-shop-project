@@ -5,7 +5,7 @@ import os
 class InstantiateCSVError(Exception):
     def __init__(self, *args, **kwargs):
         self.message = f'Файл {kwargs.get("filename")} поврежден'
-
+        super().__init__(self.message)
 
 class Item:
     """
